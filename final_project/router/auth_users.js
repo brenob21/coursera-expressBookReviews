@@ -58,7 +58,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     let book = books[isbn];
     let newReview = {"username":username,"review":info};
     
-    if((typeof book.reviews === "object" && Object.keys(book.reviews).length === 0)|| book.reviews === []){
+    if((typeof book.reviews === "object" && Object.keys(book.reviews).length === 0)|| book.reviews === [] || book.reviews === undefined){
         book.reviews = [];
         book.reviews.push(newReview);
     } else {
@@ -87,7 +87,7 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
         if((typeof book.reviews === "object" && Object.keys(book.reviews).length === 0)|| book.reviews === []){
             return res.status(400).json({message: "No Review Found"});
         } else {
-            book = book.reviews.map((rev) => rev.username !== username);
+            books[isbn] = book.reviews.map((rev) => rev.username !== username) || {};
             return res.status(200).json({message: "Review removed"});
         }
       }
