@@ -1,9 +1,10 @@
 const express = require('express');
+const axios = require('axios');
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
-
+const axios_url = "https://brenobaldass-5000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai"
 
 public_users.post("/register", (req,res) => {
     const username = req.query.username;
@@ -68,4 +69,24 @@ public_users.get('/review/:isbn',function (req, res) {
     return res.status(400).json({message: "no book found"});
 });
 
+
+
+const allBooks = async () => {
+   let res = await axios.get(`${axios_url}/`);
+   console.log(res.data);
+}
+const booksByISBN = async () => {
+    let res = await axios.get(`${axios_url}/isbn/1`);
+    console.log(res.data);
+}
+const booksByAuthor = async () => {
+    let res = await axios.get(`${axios_url}/author/Jane Austen`)
+    console.log(res.data);
+}
+const booksByTitle = async () => {
+    let res = await axios.get(`${axios_url}/title/Pride and Prejudice`);
+    console.log(res.data);
+}
+
+console.log(booksByTitle());
 module.exports.general = public_users;
