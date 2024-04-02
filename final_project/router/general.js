@@ -4,7 +4,7 @@ let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
-const axios_url = "https://brenobaldass-5000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai"
+const axios_url = "YOUR_URL_HERE";
 
 public_users.post("/register", (req,res) => {
     const username = req.query.username;
@@ -84,9 +84,9 @@ const booksByAuthor = async () => {
     console.log(res.data);
 }
 const booksByTitle = async () => {
-    let res = await axios.get(`${axios_url}/title/Pride and Prejudice`);
+    let res = await axios.get(`${axios_url}/title/Molloy, Malone Dies, The Unnamable, the trilogy`);
     console.log(res.data);
 }
 
-console.log(booksByTitle());
+//booksByTitle();
 module.exports.general = public_users;
